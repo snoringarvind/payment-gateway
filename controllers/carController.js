@@ -1,5 +1,15 @@
 var Car = require("../models/car");
 const { body, validationResult } = require("express-validator");
+var razorpay = require('razorpay');
+
+const razorpayInstance = new razorpay({
+  
+  // Replace with your key_id
+  key_id: 'rzp_test_APipHlpshTxbfM',
+
+  // Replace with your key_secret
+  key_secret: 'gflnM0HgbQ89TiCzuPVDZ9VX'
+});
 
 exports.carList = (req, res, next) => {
   Car.find({}, "carName")
@@ -58,3 +68,14 @@ exports.carPost = [
 exports.carDelete = (req, res) => {
   res.send("Not Implemented carDelete");
 };
+
+exports.carOrder = (req,res)=>{
+  console.log('order received')
+  const {amount,currency} = req.body;
+
+  razorpayInstance.orders.create({amount,currency},(err,order)=>{
+    if(!err) res.json(order);
+    else res.send(err);
+  })
+
+}

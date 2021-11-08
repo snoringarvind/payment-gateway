@@ -19,6 +19,7 @@ mongoose.connect(mongoDB, { useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+app.use(cors())
 app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
