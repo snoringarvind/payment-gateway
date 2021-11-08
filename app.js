@@ -2,6 +2,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var cors = require('cors')
 require("dotenv").config();
 
 var indexRouter = require("./routes/index");
@@ -19,7 +20,7 @@ mongoose.connect(mongoDB, { useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-app.use(cors())
+app.use(cors());
 app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
