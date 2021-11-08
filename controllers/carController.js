@@ -12,7 +12,7 @@ const razorpayInstance = new razorpay({
 });
 
 exports.carList = (req, res, next) => {
-  Car.find({}, "carName")
+  Car.find({})
     .sort({ carName: 1 })
     .exec((err, result) => {
       if (err) next(err);
